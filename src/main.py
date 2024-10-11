@@ -41,7 +41,8 @@ class InnerLoopControlImpl:
         self.motor_model = MotorModel(scale_factor=motor_config['scale_factor'],
                                       armed_offset=motor_config['offset_factor'],
                                       motorT=motor_config['time_constant'],
-                                      initial_condition=motor_config['initial_conditions'])
+                                      initial_condition=motor_config['initial_conditions'],
+                                      dt=motor_config['dt'])
         
 
     def control(self):
@@ -63,7 +64,7 @@ class InnerLoopControlImpl:
                                         torque_yaw=torque_yaw, 
                                         thrust=thrust)
         
-        print(self.motor_model.calculate_motor_speed(M1, M2, M3, M4, 0.01))
+        print(self.motor_model.calculate_motor_speed(M1, M2, M3, M4))
         
 if __name__ == "__main__":
     config_file = "config/config.yaml"

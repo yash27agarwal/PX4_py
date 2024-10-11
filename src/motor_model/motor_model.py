@@ -10,7 +10,7 @@ class MotorModel:
     """
     
     def __init__(self, scale_factor: float, armed_offset: float, motorT: float, 
-                 initial_condition: float = 0.0):
+                 initial_condition: float = 0.0, dt: float = 0.01):
         self.PWM_MAX = 2000
         self.PWM_MIN = 1000
 
@@ -28,6 +28,8 @@ class MotorModel:
         self.state_M2 = initial_condition
         self.state_M3 = initial_condition
         self.state_M4 = initial_condition
+
+        self.dt = dt
 
     def __convertToRadps(self, M1, M2, M3, M4):
         """
@@ -47,7 +49,7 @@ class MotorModel:
 
         return R1, R2, R3, R4
     
-    def calculate_motor_speed(self, M1, M2, M3, M4, dt):
+    def calculate_motor_speed(self, M1, M2, M3, M4):
         """
         Calculate motor speeds (rad/s) for four motors using the state-space equations.
         """
@@ -60,7 +62,7 @@ class MotorModel:
             dx = self.motor_dynamics_A * state + self.motor_dynamics_B * R
             
             # Update state based on the differential equation
-            new_state = state + dx * dt
+            new_state = state + dx * self.dt
             
             # Output equation: y = C * x
             output = self.motor_dynamics_C * new_state
@@ -76,25 +78,25 @@ class MotorModel:
         return speed1, speed2, speed3, speed4
 
 # Example usage of MotorModel class
-if __name__ == "__main__":
-    # Motor parameters
-    scale_factor = 500  # Example scale factor (rad/s per PWM unit)
-    armed_offset = 100  # Offset when motors are armed (rad/s)
-    motorT = 0.5  # Motor time constant (s)
-    initial_condition = 0.0  # Initial speed (rad/s)
+# if __name__ == "__main__":
+#     # Motor parameters
+#     scale_factor = 500  # Example scale factor (rad/s per PWM unit)
+#     armed_offset = 100  # Offset when motors are armed (rad/s)
+#     motorT = 0.5  # Motor time constant (s)
+#     initial_condition = 0.0  # Initial speed (rad/s)
 
-    motor_model = MotorModel(scale_factor, armed_offset, motorT, initial_condition)
+#     motor_model = MotorModel(scale_factor, armed_offset, motorT, initial_condition)
 
-    # PWM inputs (example values)
-    M1 = 1500
-    M2 = 1500
-    M3 = 1500
-    M4 = 1500
+#     # PWM inputs (example values)
+#     M1 = 1500
+#     M2 = 1500
+#     M3 = 1500
+#     M4 = 1500
 
-    # Time step for simulation
-    dt = 0.01  # 10 ms time step
+#     # Time step for simulation
+#     dt = 0.01  # 10 ms time step
 
-    # Calculate motor speeds
-    speed1, speed2, speed3, speed4 = motor_model.calculate_motor_speed(M1, M2, M3, M4, dt)
+#     # Calculate motor speeds
+#     speed1, speed2, speed3, speed4 = motor_model.calculate_motor_speed(M1, M2, M3, M4, dt)
     
-    print(f"Motor speeds (rad/s): M1={speed1:.2f}, M2={speed2:.2f}, M3={speed3:.2f}, M4={speed4:.2f}")
+#     print(f"Motor speeds (rad/s): M1={speed1:.2f}, M2={speed2:.2f}, M3={speed3:.2f}, M4={speed4:.2f}")

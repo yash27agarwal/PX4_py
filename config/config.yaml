@@ -25,3 +25,4 @@ MotorModel:
   offset_factor: 445.7799
   time_constant: 0.02
   initial_conditions: 0.0
+  dt: 0.01
