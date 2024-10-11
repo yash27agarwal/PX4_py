@@ -13,9 +13,16 @@ class InnerLoopControlImpl:
                                              MAX_CONTROL_ANGLE_RATE_ROLL=220, 
                                              MAX_CONTROL_ANGLE_RATE_YAW=200)
         
-        self.angular_rate_controller = AngularRateController(roll_r_kp=1.0, roll_r_ki=0.1, roll_r_kd=0.01,
-                                                    pitch_r_kp=1.0, pitch_r_ki=0.1, pitch_r_kd=0.01,
-                                                    yaw_r_kp=1.0, yaw_r_ki=0.1, yaw_r_kd=0.01, dt=0.01)
+        self.angular_rate_controller = AngularRateController(KP_ROLL_RATE=1.0, 
+                                                             KI_ROLL_RATE=0.1, 
+                                                             KD_ROLL_RATE=0.01,
+                                                             KP_PITCH_RATE=1.0, 
+                                                             KI_PITCH_RATE=0.1, 
+                                                             KD_PITCH_RATE=0.01,
+                                                             KP_YAW_RATE=1.0, 
+                                                             KI_YAW_RATE=0.1, 
+                                                             KD_YAW_RATE=0.01, 
+                                                             dt=0.01)
         self.mixer = MotorMixer()
         
 
