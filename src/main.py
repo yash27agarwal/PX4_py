@@ -2,6 +2,7 @@ import yaml
 from inner_loop.attitude_control import AttitudeController
 from inner_loop.angular_rate_control import AngularRateController
 from mixer.mixer import MotorMixer
+from motor_model.motor_model import MotorModel
 
 class InnerLoopControlImpl:
     def __init__(self, config_file):
@@ -12,6 +13,7 @@ class InnerLoopControlImpl:
         # Extract values from YAML under 'InnerLoop' heading
         attitude_config = config['InnerLoop']['AttitudeController']
         angular_rate_config = config['InnerLoop']['AngularRateController']
+        motor_config = config['MotorModel']
 
         self.current_angular_rate = [0, 0, 0]
 
@@ -35,6 +37,11 @@ class InnerLoopControlImpl:
                                                              KD_YAW_RATE=angular_rate_config['MC_YAWRATE_D'], 
                                                              dt=angular_rate_config['dt'])
         self.mixer = MotorMixer()
+
+        self.motor_model = MotorModel(scale_factor=motor_config['scale_factor'],
+                                      armed_offset=motor_config['offset_factor'],
+                                      motorT=motor_config['time_constant'],
+                                      initial_condition=motor_config['initial_conditions'])
         
 
     def control(self):
@@ -51,10 +58,12 @@ class InnerLoopControlImpl:
         thrust = 1
 
         # Mix control outputs to motor commands
-        print(self.mixer.mix(torque_roll=torque_roll, 
-                             torque_pitch=torque_pitch, 
-                             torque_yaw=torque_yaw, 
-                             thrust=thrust)) 
+        M1, M2, M3, M4 = self.mixer.mix(torque_roll=torque_roll, 
+                                        torque_pitch=torque_pitch, 
+                                        torque_yaw=torque_yaw, 
+                                        thrust=thrust)
+        
+        print(self.motor_model.calculate_motor_speed(M1, M2, M3, M4, 0.01))
         
 if __name__ == "__main__":
     config_file = "config/config.yaml"
