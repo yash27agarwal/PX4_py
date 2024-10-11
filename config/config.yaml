@@ -1,0 +1,21 @@
+InnerLoop:
+  AttitudeController:
+    KP_ROLL_ANGLE: 1.0
+    KP_PITCH_ANGLE: 1.0
+    KP_YAW_ANGLE: 1.0
+    MC_YAW_WEIGHT: 0.5
+    MAX_CONTROL_ANGLE_RATE_PITCH: 220
+    MAX_CONTROL_ANGLE_RATE_ROLL: 220
+    MAX_CONTROL_ANGLE_RATE_YAW: 200
+
+  AngularRateController:
+    KP_ROLL_RATE: 1.0
+    KI_ROLL_RATE: 0.1
+    KD_ROLL_RATE: 0.01
+    KP_PITCH_RATE: 1.0
+    KI_PITCH_RATE: 0.1
+    KD_PITCH_RATE: 0.01
+    KP_YAW_RATE: 1.0
+    KI_YAW_RATE: 0.1
+    KD_YAW_RATE: 0.01
+    dt: 0.01
