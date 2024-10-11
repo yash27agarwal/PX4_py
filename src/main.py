@@ -1,7 +1,7 @@
 import yaml
-from attitude_control import AttitudeController
-from angular_rate_control import AngularRateController
-from mixer import MotorMixer
+from inner_loop.attitude_control import AttitudeController
+from inner_loop.angular_rate_control import AngularRateController
+from mixer.mixer import MotorMixer
 
 class InnerLoopControlImpl:
     def __init__(self, config_file):
