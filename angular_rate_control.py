@@ -40,17 +40,17 @@ class AngularRateController:
     """
     Main class for controlling roll, pitch, and yaw angular rates using PID controllers.
     """
-    def __init__(self, roll_r_kp: float, roll_r_ki: float, roll_r_kd: float,
-                 pitch_r_kp: float, pitch_r_ki: float, pitch_r_kd: float,
-                 yaw_r_kp: float, yaw_r_ki: float, yaw_r_kd: float, dt: float):
+    def __init__(self, KP_ROLL_RATE: float, KI_ROLL_RATE: float, KD_ROLL_RATE: float,
+                 KP_PITCH_RATE: float, KI_PITCH_RATE: float, KD_PITCH_RATE: float,
+                 KP_YAW_RATE: float, KI_YAW_RATE: float, KD_YAW_RATE: float, dt: float):
         # Roll rate controller with torque bounds [-1, 1]
-        self.roll_rate_controller = RateController(Kp=roll_r_kp, Ki=roll_r_ki, Kd=roll_r_kd,
+        self.roll_rate_controller = RateController(Kp=KP_ROLL_RATE, Ki=KI_ROLL_RATE, Kd=KD_ROLL_RATE,
                                                    dt=dt, min_torque=-1.0, max_torque=1.0)
         # Pitch rate controller with torque bounds [-1, 1]
-        self.pitch_rate_controller = RateController(Kp=pitch_r_kp, Ki=pitch_r_ki, Kd=pitch_r_kd,
+        self.pitch_rate_controller = RateController(Kp=KP_PITCH_RATE, Ki=KI_PITCH_RATE, Kd=KD_PITCH_RATE,
                                                     dt=dt, min_torque=-1.0, max_torque=1.0)
         # Yaw rate controller with torque bounds [-0.5, 0.5]
-        self.yaw_rate_controller = RateController(Kp=yaw_r_kp, Ki=yaw_r_ki, Kd=yaw_r_kd,
+        self.yaw_rate_controller = RateController(Kp=KP_YAW_RATE, Ki=KI_YAW_RATE, Kd=KD_YAW_RATE,
                                                   dt=dt, min_torque=-0.5, max_torque=0.5)
 
     def control(self, angular_rate_setpoint, current_angular_rate):
