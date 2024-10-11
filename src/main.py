@@ -18,13 +18,13 @@ class InnerLoopControlImpl:
         self.current_angular_rate = [0, 0, 0]
 
         # Initialize controllers using YAML values
-        self.controller = AttitudeController(KP_ROLL_ANGLE=attitude_config['MC_ROLL_P'], 
-                                             KP_PITCH_ANGLE=attitude_config['MC_PITCH_P'], 
-                                             KP_YAW_ANGLE=attitude_config['MC_YAW_P'], 
-                                             MC_YAW_WEIGHT=attitude_config['MC_YAW_WEIGHT'], 
-                                             MAX_CONTROL_ANGLE_RATE_PITCH=attitude_config['MAX_CONTROL_ANGLE_RATE_PITCH'], 
-                                             MAX_CONTROL_ANGLE_RATE_ROLL=attitude_config['MAX_CONTROL_ANGLE_RATE_ROLL'], 
-                                             MAX_CONTROL_ANGLE_RATE_YAW=attitude_config['MAX_CONTROL_ANGLE_RATE_YAW'])
+        self.attitude_controller = AttitudeController(KP_ROLL_ANGLE=attitude_config['MC_ROLL_P'], 
+                                                     KP_PITCH_ANGLE=attitude_config['MC_PITCH_P'], 
+                                                     KP_YAW_ANGLE=attitude_config['MC_YAW_P'], 
+                                                     MC_YAW_WEIGHT=attitude_config['MC_YAW_WEIGHT'], 
+                                                     MAX_CONTROL_ANGLE_RATE_PITCH=attitude_config['MAX_CONTROL_ANGLE_RATE_PITCH'], 
+                                                     MAX_CONTROL_ANGLE_RATE_ROLL=attitude_config['MAX_CONTROL_ANGLE_RATE_ROLL'], 
+                                                     MAX_CONTROL_ANGLE_RATE_YAW=attitude_config['MAX_CONTROL_ANGLE_RATE_YAW'])
         
         self.angular_rate_controller = AngularRateController(KP_ROLL_RATE=angular_rate_config['MC_ROLLRATE_P'], 
                                                              KI_ROLL_RATE=angular_rate_config['MC_ROLLRATE_I'], 
@@ -51,7 +51,7 @@ class InnerLoopControlImpl:
         yawrate_d = 0.1
 
         # Call attitude control method
-        rate_setpoint, _, _ = self.controller.attitude_control(att_q, att_setpoint_q, yawrate_d)
+        rate_setpoint, _, _ = self.attitude_controller.control(att_q, att_setpoint_q, yawrate_d)
 
         # Call angular rate control method
         torque_roll, torque_pitch, torque_yaw = self.angular_rate_controller.control(rate_setpoint, self.current_angular_rate)

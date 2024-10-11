@@ -40,7 +40,7 @@ class AttitudeController:
         rate_setpoint[2] = np.clip(rate_setpoint[2], -self.MAX_CONTROL_ANGLE_RATE_YAW, self.MAX_CONTROL_ANGLE_RATE_YAW)
         return rate_setpoint
 
-    def attitude_control(self, att_q, att_setpoint_q, yawrate_d):
+    def control(self, att_q, att_setpoint_q, yawrate_d):
         q = np.array(att_q)
         qd = np.array(att_setpoint_q)
         
