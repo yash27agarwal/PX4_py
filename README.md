@@ -1,7 +1,5 @@
 # PX4_py
 
-**Author:** Agarwal Yash
-
 ## Introduction
 This repository implements a PX4 control algorithm in Python. Please note that the repository is currently under development, and certain parts of the code may contain errors or incomplete features. As of now, the inner loop control and motor dynamics have been implemented, while the outer loop control is still in progress.
 
@@ -23,7 +21,7 @@ To get started with the repository, follow these steps:
 To run the code, you need to run:
 ```
 cd src
-python3 -m main.py
+python3 -m main
 ```
 
 
@@ -37,5 +35,8 @@ All controller parameters are defined in the configuration file located at `conf
 - **Outer Loop Control:** Under development
 
 If you encounter issues or have suggestions, feel free to raise an issue.
+
+##
+**Author:** Agarwal Yash
 
  
