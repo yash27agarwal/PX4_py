@@ -3,6 +3,11 @@ from inner_loop.attitude_control import AttitudeController
 from inner_loop.angular_rate_control import AngularRateController
 from mixer.mixer import MotorMixer
 from motor_model.motor_model import MotorModel
+from pathlib import Path
+import os
+
+base_path = Path(__file__).parent.parent
+
 
 class InnerLoopControlImpl:
     def __init__(self, config_file):
@@ -67,6 +72,6 @@ class InnerLoopControlImpl:
         print(self.motor_model.calculate_motor_speed(M1, M2, M3, M4))
         
 if __name__ == "__main__":
-    config_file = "config/config.yaml"
-    inner_loop = InnerLoopControlImpl(config_file)
+    yaml_file_path = os.path.join(base_path, 'config', 'config.yaml')
+    inner_loop = InnerLoopControlImpl(yaml_file_path)
     inner_loop.control()
