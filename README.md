@@ -33,6 +33,7 @@ All controller parameters are defined in the configuration file located at `conf
 ## Development Status
 - **Inner Loop Control:** Implemented
 - **Motor Dynamics:** Implemented
+- **Mixer:** Implemented 
 - **Outer Loop Control:** Under development
 
 If you encounter issues or have suggestions, feel free to raise an issue.

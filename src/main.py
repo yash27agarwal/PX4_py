@@ -8,7 +8,6 @@ import os
 
 base_path = Path(__file__).parent.parent
 
-
 class InnerLoopControlImpl:
     def __init__(self, config_file):
         # Load the YAML configuration file
